@@ -5,4 +5,21 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="nav_drawer_summary">Daily Summary</string>
+    <string name="nav_drawer_weather">Weather</string>
+    <string name="nav_drawer_tasks">Tasks</string>
+    <string name="nav_drawer_birthdays">Birthdays</string>
+    <string name="nav_drawer_settings">@string/action_settings</string>
+
+    <string name="nav_bottom_summary">@string/nav_drawer_summary</string>
+    <string name="nav_bottom_weather">@string/nav_drawer_weather</string>
+    <string name="nav_bottom_tasks">@string/nav_drawer_tasks</string>
+    <string name="nav_bottom_birthdays">@string/nav_drawer_birthdays</string>
+
+    <string name="logo_content_desc">App Logo: A bow tied on a finger</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -3,8 +3,13 @@
     <!-- https://material.io/guidelines/style/color.html#color-color-palette -->
     <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#E64A19</color>
-    <color name="colorAccent">#304FFE</color>
+    <color name="colorAccent">#536DFE</color>
 
-    <color name="iconLight">#FFFFFF</color>
-    <color name="iconDark">#000000</color>
+    <color name="colorPrimaryLight">#FF8A65</color>
+    <color name="colorPrimaryVeryDark">#BF360C</color>
+    <color name="colorAccentDark">#304FFE</color>
+
+    <color name="iconLight">#FFFFFFFF</color>
+    <color name="iconLightInactive">#99FFFFFF</color> <!-- http://stackoverflow.com/a/16890937 -->
+    <color name="iconDark">@android:color/primary_text_light</color>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_bottom_summary"
+        android:icon="@drawable/ic_summary"
+        android:title="@string/nav_bottom_summary"/>
+
+    <item
+        android:id="@+id/nav_bottom_weather"
+        android:icon="@drawable/ic_weather"
+        android:title="@string/nav_bottom_weather"/>
+
+    <item
+        android:id="@+id/nav_bottom_tasks"
+        android:icon="@drawable/ic_tasks"
+        android:title="@string/nav_bottom_tasks"/>
+
+    <item
+        android:id="@+id/nav_bottom_birthdays"
+        android:icon="@drawable/ic_birthdays"
+        android:title="@string/nav_bottom_birthdays"/>
+</menu>
