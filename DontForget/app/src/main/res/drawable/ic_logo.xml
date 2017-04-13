@@ -5,8 +5,8 @@
         android:viewportWidth="24.0">
     <!-- https://www.w3.org/TR/SVG11/paths.html#PathData -->
     <!--<path-->
-        <!--android:fillColor="@color/colorPrimary"-->
-        <!--android:pathData="M0,0 H24 V24 H0"/>-->
+    <!--android:fillColor="@color/colorPrimary"-->
+    <!--android:pathData="M0,0 H24 V24 H0"/>-->
     <path
         android:pathData="
                     M 17.5,15
@@ -32,7 +32,7 @@
                     v -7
                     c 0,-2 3,-2 3,0
                     v 10"
-        android:strokeColor="@color/iconLight"
+        android:strokeColor="@color/white"
         android:strokeWidth="0.5"/>
     <path
         android:pathData="

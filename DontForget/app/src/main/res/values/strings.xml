@@ -17,9 +17,14 @@
     <string name="nav_bottom_tasks">@string/nav_drawer_tasks</string>
     <string name="nav_bottom_birthdays">@string/nav_drawer_birthdays</string>
 
-    <string name="logo_content_desc">App Logo: A bow tied on a finger</string>
     <string name="title_activity_bottom">BottomActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="logo_content_desc">App Logo: A bow tied on a finger</string>
+    <string name="bg_img_content_desc">Background image</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

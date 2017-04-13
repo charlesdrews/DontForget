@@ -7,4 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="nav_bottom_elevation">8dp</dimen>
+    <item name="large_bg_icon_alpha" format="float" type="dimen">0.1</item>
 </resources>
