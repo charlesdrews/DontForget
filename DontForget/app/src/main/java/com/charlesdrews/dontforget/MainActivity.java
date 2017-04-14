@@ -1,6 +1,5 @@
 package com.charlesdrews.dontforget;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,25 +14,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.charlesdrews.dontforget.birthdays.BirthdaysContract;
 import com.charlesdrews.dontforget.birthdays.BirthdaysFragment;
+import com.charlesdrews.dontforget.summary.SummaryContract;
 import com.charlesdrews.dontforget.summary.SummaryFragment;
+import com.charlesdrews.dontforget.summary.SummaryPresenter;
+import com.charlesdrews.dontforget.tasks.TasksContract;
 import com.charlesdrews.dontforget.tasks.TasksFragment;
+import com.charlesdrews.dontforget.weather.WeatherContract;
 import com.charlesdrews.dontforget.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        BottomNavigationView.OnNavigationItemSelectedListener,
-        SummaryFragment.OnFragmentInteractionListener,
-        WeatherFragment.OnFragmentInteractionListener,
-        TasksFragment.OnFragmentInteractionListener,
-        BirthdaysFragment.OnFragmentInteractionListener {
+        BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final int INVALID_SELECTION = -1;
-    private static final int DAILY_SUMMARY = 0;
-    private static final int WEATHER = 1;
-    private static final int TASKS = 2;
-    private static final int BIRTHDAYS = 3;
-    private static final int SETTINGS = 4;
+    public static final int INVALID_SELECTION = -1;
+    public static final int DAILY_SUMMARY = 0;
+    public static final int WEATHER = 1;
+    public static final int TASKS = 2;
+    public static final int BIRTHDAYS = 3;
+    public static final int SETTINGS = 4;
+    public static final int NUM_FRAGMENTS = 4;
 
     private int mLastSelectionIndex = INVALID_SELECTION;
     private NavigationView mNavDrawer;
@@ -94,15 +95,6 @@ public class MainActivity extends AppCompatActivity
 
 
     // ----------------------------------------------------------------------------------
-    // Fragment listener methods
-    // ----------------------------------------------------------------------------------
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-
-    // ----------------------------------------------------------------------------------
     // Navigation helper methods
     // ----------------------------------------------------------------------------------
 
@@ -140,6 +132,7 @@ public class MainActivity extends AppCompatActivity
 
         mLastSelectionIndex = selectionIndex;
         Fragment fragment = null;
+        BaseContract.Presenter presenter = PresenterCache.getInstance().getPresenter(selectionIndex);
 
         switch (mLastSelectionIndex) {
             case INVALID_SELECTION:
@@ -150,19 +143,23 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case DAILY_SUMMARY:
-                fragment = SummaryFragment.newInstance("", "");
+                fragment = SummaryFragment.newInstance();
+                ((SummaryContract.View) fragment).setPresenter((SummaryContract.Presenter) presenter);
                 break;
 
             case WEATHER:
-                fragment = WeatherFragment.newInstance("", "");
+                fragment = WeatherFragment.newInstance();
+                ((WeatherContract.View) fragment).setPresenter((WeatherContract.Presenter) presenter);
                 break;
 
             case TASKS:
-                fragment = TasksFragment.newInstance("", "");
+                fragment = TasksFragment.newInstance();
+                ((TasksContract.View) fragment).setPresenter((TasksContract.Presenter) presenter);
                 break;
 
             case BIRTHDAYS:
-                fragment = BirthdaysFragment.newInstance("", "");
+                fragment = BirthdaysFragment.newInstance();
+                ((BirthdaysContract.View) fragment).setPresenter((BirthdaysContract.Presenter) presenter);
                 break;
         }
 

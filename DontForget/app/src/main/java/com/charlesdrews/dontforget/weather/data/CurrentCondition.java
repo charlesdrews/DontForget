@@ -8,12 +8,12 @@ import java.util.Locale;
  * Created by charlie on 4/13/17.
  */
 
-public class CurrentConditions {
+public class CurrentCondition {
     private String mDate, mTime12, mTime24;
     private String mConditionDesc, mIconUrl, mLocation;
-    private int mTempF, mTempC;
+    private String mTempF, mTempC;
 
-    public CurrentConditions(String conditionDesc, String iconUrl, String location, int tempF, int tempC) {
+    public CurrentCondition(String conditionDesc, String iconUrl, String location, int tempF, int tempC) {
         Date now = new Date();
         mDate = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(now);
         mTime12 = new SimpleDateFormat("h:mm a", Locale.getDefault()).format(now);
@@ -22,8 +22,8 @@ public class CurrentConditions {
         mConditionDesc = conditionDesc;
         mIconUrl = iconUrl;
         mLocation = location;
-        mTempF = tempF;
-        mTempC = tempC;
+        mTempF = tempF + "°";
+        mTempC = tempC + "°";
     }
 
     public String getDate() {
@@ -50,11 +50,11 @@ public class CurrentConditions {
         return mLocation;
     }
 
-    public int getTempF() {
+    public String getTempF() {
         return mTempF;
     }
 
-    public int getTempC() {
+    public String getTempC() {
         return mTempC;
     }
 }
