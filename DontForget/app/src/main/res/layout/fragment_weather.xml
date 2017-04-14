@@ -1,22 +1,23 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.charlesdrews.dontforget.BaseFragment">
+    tools:background="@drawable/bg_main">
 
     <ImageView
-        android:id="@+id/large_bg_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="@dimen/large_bg_icon_alpha"
         android:contentDescription="@string/bg_img_content_desc"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_weather"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/hello_blank_fragment"/>
+        android:text="@string/nav_bottom_weather"/>
 
 </FrameLayout>

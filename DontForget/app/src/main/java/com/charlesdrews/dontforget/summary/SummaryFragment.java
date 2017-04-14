@@ -1,37 +1,39 @@
-package com.charlesdrews.dontforget;
+package com.charlesdrews.dontforget.summary;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.charlesdrews.dontforget.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BaseFragment.OnFragmentInteractionListener} interface
+ * {@link SummaryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BaseFragment#newInstance} factory method to
+ * Use the {@link SummaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BaseFragment extends Fragment {
+public class SummaryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String BG_ICON_RES_ID_KEY = "bgIconResIdKey";
+    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private int mBgIconResId;
+    private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public BaseFragment() {
+    public SummaryFragment() {
         // Required empty public constructor
     }
 
@@ -41,13 +43,13 @@ public class BaseFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BaseFragment.
+     * @return A new instance of fragment SummaryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BaseFragment newInstance(int bgIconResId, String param2) {
-        BaseFragment fragment = new BaseFragment();
+    public static SummaryFragment newInstance(String param1, String param2) {
+        SummaryFragment fragment = new SummaryFragment();
         Bundle args = new Bundle();
-        args.putInt(BG_ICON_RES_ID_KEY, bgIconResId);
+        args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -57,7 +59,7 @@ public class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mBgIconResId = getArguments().getInt(BG_ICON_RES_ID_KEY, -1);
+            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -66,18 +68,21 @@ public class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false);
+        return inflater.inflate(R.layout.fragment_summary, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (mBgIconResId != -1) {
-            ImageView bgIcon = (ImageView) view.findViewById(R.id.large_bg_icon);
-            bgIcon.setImageResource(mBgIconResId);
-        }
-
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
