@@ -3,7 +3,6 @@ package com.charlesdrews.dontforget;
 import android.util.SparseArray;
 
 import com.charlesdrews.dontforget.birthdays.BirthdaysPresenter;
-import com.charlesdrews.dontforget.summary.SummaryContract;
 import com.charlesdrews.dontforget.summary.SummaryPresenter;
 import com.charlesdrews.dontforget.tasks.TasksPresenter;
 import com.charlesdrews.dontforget.weather.WeatherPresenter;
@@ -14,12 +13,12 @@ import com.charlesdrews.dontforget.weather.WeatherPresenter;
  */
 
 public class PresenterCache {
-    private static final PresenterCache ourInstance = new PresenterCache();
+    private static final PresenterCache INSTANCE = new PresenterCache();
 
     private SparseArray<BaseContract.Presenter> mPresenters;
 
     public static PresenterCache getInstance() {
-        return ourInstance;
+        return INSTANCE;
     }
 
     private PresenterCache() {

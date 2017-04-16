@@ -18,10 +18,9 @@ import com.charlesdrews.dontforget.birthdays.BirthdaysContract;
 import com.charlesdrews.dontforget.birthdays.BirthdaysFragment;
 import com.charlesdrews.dontforget.summary.SummaryContract;
 import com.charlesdrews.dontforget.summary.SummaryFragment;
-import com.charlesdrews.dontforget.summary.SummaryPresenter;
 import com.charlesdrews.dontforget.tasks.TasksContract;
 import com.charlesdrews.dontforget.tasks.TasksFragment;
-import com.charlesdrews.dontforget.weather.WeatherContract;
+import com.charlesdrews.dontforget.weather.WeatherContracts;
 import com.charlesdrews.dontforget.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity
     // ----------------------------------------------------------------------------------
     // Navigation helper methods
     // ----------------------------------------------------------------------------------
-
     private int getSelectionIndex(int selectionResId) {
         switch (selectionResId) {
             case R.id.nav_drawer_summary:
@@ -149,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
             case WEATHER:
                 fragment = WeatherFragment.newInstance();
-                ((WeatherContract.View) fragment).setPresenter((WeatherContract.Presenter) presenter);
+                ((WeatherContracts.View) fragment).setPresenter((WeatherContracts.Presenter) presenter);
                 break;
 
             case TASKS:

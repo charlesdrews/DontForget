@@ -1,4 +1,4 @@
-package com.charlesdrews.dontforget.weather.data;
+package com.charlesdrews.dontforget.weather.model;
 
 /**
  * Models a weather forecast for a specified hour

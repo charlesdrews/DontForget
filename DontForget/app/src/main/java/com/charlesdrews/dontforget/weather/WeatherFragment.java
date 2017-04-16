@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.charlesdrews.dontforget.R;
-import com.charlesdrews.dontforget.weather.data.CurrentCondition;
-import com.charlesdrews.dontforget.weather.data.DayForecast;
-import com.charlesdrews.dontforget.weather.data.HourForecast;
+import com.charlesdrews.dontforget.weather.model.CurrentCondition;
+import com.charlesdrews.dontforget.weather.model.DayForecast;
+import com.charlesdrews.dontforget.weather.model.HourForecast;
 
 import java.util.List;
 
-public class WeatherFragment extends Fragment implements WeatherContract.View {
+public class WeatherFragment extends Fragment implements WeatherContracts.View {
 
-    private WeatherContract.Presenter mPresenter;
+    private WeatherContracts.Presenter mPresenter;
 
     public WeatherFragment() {/* Required empty public constructor */}
 
@@ -38,7 +38,7 @@ public class WeatherFragment extends Fragment implements WeatherContract.View {
     }
 
     @Override
-    public void setPresenter(@NonNull WeatherContract.Presenter presenter) {
+    public void setPresenter(@NonNull WeatherContracts.Presenter presenter) {
         mPresenter = presenter;
     }
 

@@ -1,4 +1,4 @@
-package com.charlesdrews.dontforget.weather.data;
+package com.charlesdrews.dontforget.weather.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
