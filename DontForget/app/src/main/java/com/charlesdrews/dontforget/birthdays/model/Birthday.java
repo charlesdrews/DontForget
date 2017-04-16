@@ -13,25 +13,25 @@ public class Birthday {
 
     private long mId;
     private String mName;
-    private int mYearOfBirth, mMonthOfBirth, mDayOfBirth;
+    private int mYearOfBirth, mMonth, mDay;
     private boolean mNotificationWanted;
 
-    public Birthday(long id, @NonNull String name, int yearOfBirth, int monthOfBirth,
-                    int dayOfBirth, boolean notificationWanted) {
+    public Birthday(long id, @NonNull String name, int yearOfBirth, int month,
+                    int day, boolean notificationWanted) {
         mId = id;
         mName = name;
         mYearOfBirth = verifyYearOfBirth(yearOfBirth);
         mName = name;
 
-        if (monthOfBirth < 0 || monthOfBirth > 12) {
+        if (month < 0 || month > 12) {
             throw new IllegalArgumentException("Month must be between 1 and 12, inclusive");
         }
-        mMonthOfBirth = monthOfBirth;
+        mMonth = month;
 
-        if (dayOfBirth < 0 || dayOfBirth > 31) {
+        if (day < 0 || day > 31) {
             throw new IllegalArgumentException("Day must be between 1 and 31, inclusive");
         }
-        mDayOfBirth = dayOfBirth;
+        mDay = day;
 
         mNotificationWanted = notificationWanted;
     }
@@ -65,23 +65,46 @@ public class Birthday {
         }
     }
 
-    public int getMonthOfBirth() {
-        return mMonthOfBirth;
+    public int getMonth() {
+        return mMonth;
     }
 
-    public void setMonthOfBirth(int monthOfBirth) {
-        if (monthOfBirth > 0 && monthOfBirth < 13) {
-            mMonthOfBirth = monthOfBirth;
+    public void setMonth(int month) {
+        if (month > 0 && month < 13) {
+            mMonth = month;
         }
     }
 
-    public int getDayOfBirth() {
-        return mDayOfBirth;
+    public int getDay() {
+        return mDay;
     }
 
-    public void setDayOfBirth(int dayOfBirth) {
-        if (dayOfBirth > 0 && dayOfBirth < 32) {
-            mDayOfBirth = dayOfBirth;
+    public void setDay(int day) {
+        if (day > 0 && day < 32) {
+            mDay = day;
+        }
+    }
+
+    /**
+     * Determine whether this birthday has already occurred during the current calendar year.
+     *
+     * @param daysToLookBack - If > 0 then return this year for birthdays up to this many days ago.
+     * @return If birthday is after today, or within the last daysToLookBack days, this year,
+     * else next year.
+     */
+    public int getYearOfNextBirthday(int daysToLookBack) {
+        Calendar threshold = Calendar.getInstance();
+        int currentYear = threshold.get(Calendar.YEAR);
+
+        threshold.add(Calendar.DAY_OF_MONTH, -daysToLookBack);
+
+        Calendar birthday = Calendar.getInstance();
+        birthday.set(currentYear, mMonth, mDay);
+
+        if (birthday.before(threshold)) {
+            return currentYear + 1;
+        } else {
+            return currentYear;
         }
     }
 
