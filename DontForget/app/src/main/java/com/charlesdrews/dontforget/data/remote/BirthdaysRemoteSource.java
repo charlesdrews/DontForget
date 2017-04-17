@@ -17,7 +17,7 @@ import java.util.List;
  * Created by charlie on 4/16/17.
  */
 
-public class BirthdaysRemoteSource implements BirthdaysContract.DataSource.Remote {
+public class BirthdaysRemoteSource implements BirthdaysContract.DataSource {
 
     private static final Uri URI = ContactsContract.Data.CONTENT_URI;
 
@@ -76,6 +76,11 @@ public class BirthdaysRemoteSource implements BirthdaysContract.DataSource.Remot
         }
 
         return birthdays;
+    }
+
+    @Override
+    public boolean saveBirthday(@NonNull Birthday birthday) {
+        return false;
     }
 
     /**

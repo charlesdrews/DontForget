@@ -7,9 +7,10 @@ import android.support.annotation.NonNull;
 
 import com.charlesdrews.dontforget.birthdays.BirthdaysContract;
 import com.charlesdrews.dontforget.birthdays.model.Birthday;
+import com.charlesdrews.dontforget.data.DataSource;
 import com.charlesdrews.dontforget.tasks.TasksContract;
 import com.charlesdrews.dontforget.tasks.model.Task;
-import com.charlesdrews.dontforget.weather.WeatherContracts;
+import com.charlesdrews.dontforget.weather.WeatherContract;
 import com.charlesdrews.dontforget.weather.model.CurrentCondition;
 import com.charlesdrews.dontforget.weather.model.DayForecast;
 import com.charlesdrews.dontforget.weather.model.HourForecast;
@@ -21,12 +22,22 @@ import java.util.List;
  * Created by charlie on 4/16/17.
  */
 
-public class LocalDataSource extends SQLiteOpenHelper implements WeatherContracts.DataSource.Local,
-        TasksContract.DataSource.Local, BirthdaysContract.DataSource.Local {
+public class LocalDataSource extends SQLiteOpenHelper implements DataSource {
 
-    public LocalDataSource(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        //TODO
-        super(context, name, factory, version);
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "dontforget.db";
+
+    private static LocalDataSource sInstance;
+
+    private LocalDataSource(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static LocalDataSource getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new LocalDataSource(context.getApplicationContext());
+        }
+        return sInstance;
     }
 
 
@@ -45,7 +56,7 @@ public class LocalDataSource extends SQLiteOpenHelper implements WeatherContract
 
 
     // ----------------------------------------------------------------------------------------
-    // WeatherContract.DataSource.Local methods
+    // WeatherContract.DataProvider.Local methods
     // ----------------------------------------------------------------------------------------
     @Override
     public CurrentCondition getCurrentCondition() {
@@ -85,7 +96,7 @@ public class LocalDataSource extends SQLiteOpenHelper implements WeatherContract
 
 
     // ----------------------------------------------------------------------------------------
-    // TasksContract.DataSource.Local methods
+    // TasksContract.DataProvider.Local methods
     // ----------------------------------------------------------------------------------------
     @Override
     public List<Task> getTasks() {
@@ -94,13 +105,7 @@ public class LocalDataSource extends SQLiteOpenHelper implements WeatherContract
     }
 
     @Override
-    public long saveTask(@NonNull Task task) {
-        //TODO
-        return 0;
-    }
-
-    @Override
-    public boolean updateTask(@NonNull Task task) {
+    public boolean saveTask(@NonNull Task task) {
         //TODO
         return false;
     }
@@ -119,7 +124,7 @@ public class LocalDataSource extends SQLiteOpenHelper implements WeatherContract
 
 
     // ----------------------------------------------------------------------------------------
-    // BirthdaysContract.DataSource.Local methods
+    // BirthdaysContract.DataProvider.Local methods
     // ----------------------------------------------------------------------------------------
     @Override
     public List<Birthday> getBirthdays() {
@@ -128,13 +133,7 @@ public class LocalDataSource extends SQLiteOpenHelper implements WeatherContract
     }
 
     @Override
-    public long saveBirthday(Birthday birthday) {
-        //TODO
-        return 0;
-    }
-
-    @Override
-    public boolean updateBirthday(Birthday birthday) {
+    public boolean saveBirthday(@NonNull Birthday birthday) {
         //TODO
         return false;
     }

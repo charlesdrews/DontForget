@@ -14,6 +14,7 @@ public interface BaseContract {
     }
 
     interface Presenter {
-        void onViewReady();
+        void subscribeView();
+        void unsubscribeView();
     }
 }

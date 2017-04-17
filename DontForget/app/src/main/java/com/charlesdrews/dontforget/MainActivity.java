@@ -16,12 +16,20 @@ import android.widget.Toast;
 
 import com.charlesdrews.dontforget.birthdays.BirthdaysContract;
 import com.charlesdrews.dontforget.birthdays.BirthdaysFragment;
+import com.charlesdrews.dontforget.data.DataProvider;
+import com.charlesdrews.dontforget.data.DataSource;
+import com.charlesdrews.dontforget.data.local.LocalDataSource;
+import com.charlesdrews.dontforget.data.remote.BirthdaysRemoteSource;
+import com.charlesdrews.dontforget.data.remote.WeatherRemoteSource;
 import com.charlesdrews.dontforget.summary.SummaryContract;
 import com.charlesdrews.dontforget.summary.SummaryFragment;
 import com.charlesdrews.dontforget.tasks.TasksContract;
 import com.charlesdrews.dontforget.tasks.TasksFragment;
-import com.charlesdrews.dontforget.weather.WeatherContracts;
+import com.charlesdrews.dontforget.tasks.model.Task;
+import com.charlesdrews.dontforget.weather.WeatherContract;
 import com.charlesdrews.dontforget.weather.WeatherFragment;
+
+import static android.R.attr.fragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     private NavigationView mNavDrawer;
     private DrawerLayout mNavDrawerLayout;
     private BottomNavigationView mNavBottom;
+    private DataSource mDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Initialize data sources
+        mDataSource = DataProvider.getInstance(
+                LocalDataSource.getInstance(this),
+                new WeatherRemoteSource(),
+                new BirthdaysRemoteSource(getContentResolver())
+        );
 
         // Set up Navigation Drawer
         mNavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -129,44 +145,52 @@ public class MainActivity extends AppCompatActivity
         }
 
         mLastSelectionIndex = selectionIndex;
-        Fragment fragment = null;
-        BaseContract.Presenter presenter = PresenterCache.getInstance().getPresenter(selectionIndex);
+        PresenterCache presenterCache = PresenterCache.getInstance();
 
         switch (mLastSelectionIndex) {
             case INVALID_SELECTION:
                 return false;
 
             case SETTINGS:
+                //TODO
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 return true;
 
             case DAILY_SUMMARY:
-                fragment = SummaryFragment.newInstance();
-                ((SummaryContract.View) fragment).setPresenter((SummaryContract.Presenter) presenter);
+                SummaryFragment summaryFragment = SummaryFragment.newInstance();
+                SummaryContract.Presenter summaryPresenter = (SummaryContract.Presenter) presenterCache
+                        .getPresenter(DAILY_SUMMARY, mDataSource, summaryFragment);
+
+                summaryFragment.setPresenter(summaryPresenter);
+                replaceFragment(summaryFragment);
                 break;
 
             case WEATHER:
-                fragment = WeatherFragment.newInstance();
-                ((WeatherContracts.View) fragment).setPresenter((WeatherContracts.Presenter) presenter);
+                WeatherFragment weatherFragment = WeatherFragment.newInstance();
+                WeatherContract.Presenter weatherPresenter = (WeatherContract.Presenter) presenterCache
+                        .getPresenter(WEATHER, mDataSource, weatherFragment);
+
+                weatherFragment.setPresenter(weatherPresenter);
+                replaceFragment(weatherFragment);
                 break;
 
             case TASKS:
-                fragment = TasksFragment.newInstance();
-                ((TasksContract.View) fragment).setPresenter((TasksContract.Presenter) presenter);
+                TasksFragment tasksFragment = TasksFragment.newInstance();
+                TasksContract.Presenter tasksPresenter = (TasksContract.Presenter) presenterCache
+                        .getPresenter(TASKS, mDataSource, tasksFragment);
+
+                tasksFragment.setPresenter(tasksPresenter);
+                replaceFragment(tasksFragment);
                 break;
 
             case BIRTHDAYS:
-                fragment = BirthdaysFragment.newInstance();
-                ((BirthdaysContract.View) fragment).setPresenter((BirthdaysContract.Presenter) presenter);
-                break;
-        }
+                BirthdaysFragment birthdaysFragment = BirthdaysFragment.newInstance();
+                BirthdaysContract.Presenter birthdaysPresenter = (BirthdaysContract.Presenter) presenterCache
+                        .getPresenter(BIRTHDAYS, mDataSource, birthdaysFragment);
 
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-                    .replace(R.id.fragment_container, fragment)
-                    .addToBackStack(null)
-                    .commit();
+                birthdaysFragment.setPresenter(birthdaysPresenter);
+                replaceFragment(birthdaysFragment);
+                break;
         }
 
         mNavDrawer.getMenu().getItem(mLastSelectionIndex).setChecked(true);
@@ -174,5 +198,13 @@ public class MainActivity extends AppCompatActivity
 
         mNavBottom.getMenu().getItem(mLastSelectionIndex).setChecked(true);
         return true;
+    }
+
+    private void replaceFragment(@NonNull Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

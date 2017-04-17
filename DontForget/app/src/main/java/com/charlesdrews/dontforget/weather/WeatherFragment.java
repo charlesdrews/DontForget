@@ -15,9 +15,9 @@ import com.charlesdrews.dontforget.weather.model.HourForecast;
 
 import java.util.List;
 
-public class WeatherFragment extends Fragment implements WeatherContracts.View {
+public class WeatherFragment extends Fragment implements WeatherContract.View {
 
-    private WeatherContracts.Presenter mPresenter;
+    private WeatherContract.Presenter mPresenter;
 
     public WeatherFragment() {/* Required empty public constructor */}
 
@@ -38,7 +38,7 @@ public class WeatherFragment extends Fragment implements WeatherContracts.View {
     }
 
     @Override
-    public void setPresenter(@NonNull WeatherContracts.Presenter presenter) {
+    public void setPresenter(@NonNull WeatherContract.Presenter presenter) {
         mPresenter = presenter;
     }
 

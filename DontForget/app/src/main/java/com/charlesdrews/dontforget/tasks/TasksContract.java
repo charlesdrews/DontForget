@@ -7,9 +7,6 @@ import com.charlesdrews.dontforget.tasks.model.Task;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-
 /**
  * Defines responsibilities of View and Presenter for the Tasks feature
  * Created by charlie on 4/14/17.
@@ -31,26 +28,12 @@ public interface TasksContract {
     }
 
     interface DataSource {
-        Observable<List<Task>> getTasks();
+        List<Task> getTasks();
 
-        Completable saveTask(@NonNull Task task);
+        boolean saveTask(@NonNull Task task);
 
-        Completable updateTask(@NonNull Task task);
+        boolean deleteTask(@NonNull Task task);
 
-        Completable deleteTask(@NonNull Task task);
-
-        Completable deleteTask(long taskId);
-
-        interface Local {
-            List<Task> getTasks();
-
-            long saveTask(@NonNull Task task);
-
-            boolean updateTask(@NonNull Task task);
-
-            boolean deleteTask(@NonNull Task task);
-
-            boolean deleteTask(long taskId);
-        }
+        boolean deleteTask(long taskId);
     }
 }
